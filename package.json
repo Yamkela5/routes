@@ -1,0 +1,22 @@
+{
+  "name": "express-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yamkela5/routes.git"
+  },
+  "author": "Yamkela5",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yamkela5/routes/issues"
+  },
+  "homepage": "https://github.com/yamkela5/routes#readme",
+  "dependencies": {
+    "express": "^4.15.3"
+  }
+}
