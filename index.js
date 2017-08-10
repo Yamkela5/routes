@@ -1,16 +1,28 @@
 var express = require('express');
+var exphbs = require('express-handlebars')
 var app = express();
+
 var greeted=[];
+app.engine('handlebars', exphbs({defaultLayout: 'main'}));
+
+app.set('view engine', 'handlebars');
 //creating  get router that greets different users
  app.get('/greetings/:GreetedNames', function(req, res){
-    res.send('Hello, ' +req.params.GreetedNames);
     greeted.push(req.params.GreetedNames);
+
     console.log(req.params.GreetedNames);
+    console.log(greeted);
+
+    res.send('Hello, ' + req.params.GreetedNames);
   });
   //creating an app that will display the greeted users
 app.get('/greeted', function(req, res){
-  res.send(greeted);
+
+  console.log("==================");
   console.log(greeted);
+
+  res.render('users/index', {users:greeted});
+
 });
 app.get('/counter/:GreetedPersonas', function(req, res){
   var user = req.params.GreetedPersonas;
