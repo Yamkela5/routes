@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/yamkela5/routes#readme",
   "dependencies": {
-    "express": "^4.15.3"
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "l": "^0.6.0"
   }
 }

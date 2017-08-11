@@ -1,11 +1,20 @@
 var express = require('express');
 var exphbs = require('express-handlebars')
+var bodyParser = require('body-parser');
 var app = express();
-
 var greeted=[];
-app.engine('handlebars', exphbs({defaultLayout: 'main'}));
+var users=[];
 
+
+app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+
+// parse application/json
+app.use(bodyParser.json())
+app.use(express.static('public'));
 //creating  get router that greets different users
  app.get('/greetings/:GreetedNames', function(req, res){
     greeted.push(req.params.GreetedNames);
@@ -18,12 +27,35 @@ app.set('view engine', 'handlebars');
   //creating an app that will display the greeted users
 app.get('/greeted', function(req, res){
 
-  console.log("==================");
+//  console.log("==================");
   console.log(greeted);
 
   res.render('users/index', {users:greeted});
 
 });
+
+//create an HTML form
+app.get('/users/greet', function(req, res){
+  res.render('users/greet');
+
+//  console.log("==================");
+  console.log(greeted);
+
+
+});
+
+app.post('/users/greet', function(req, res){
+  var name=req.body.name
+  users.push(name)
+  res.render('users/index',{users:users});
+
+//  console.log("==================");
+  //console.log(greeted);
+
+
+});
+
+
 app.get('/counter/:GreetedPersonas', function(req, res){
   var user = req.params.GreetedPersonas;
   var countUsers ={};
