@@ -1,7 +1,9 @@
 var express = require('express');
-var exphbs = require('express-handlebars')
+var exphbs = require('express-handlebars');
 var bodyParser = require('body-parser');
 var app = express();
+var flash =require('express-flash');
+var session=require('express-session')
 var greeted=[];
 var users=[];
 
@@ -41,16 +43,16 @@ app.get('/users/greet', function(req, res){
 //  console.log("==================");
   console.log(greeted);
 
-
 });
+
 
 app.post('/users/greet', function(req, res){
   var name=req.body.name
   users.push(name)
-  res.render('users/index',{users:users});
+  res.render('users/greet',{msg:'Hello ,' + name});
 
 //  console.log("==================");
-  //console.log(greeted);
+  console.log(name);
 
 
 });
