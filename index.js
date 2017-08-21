@@ -6,7 +6,7 @@ var flash =require('express-flash');
 var session=require('express-session')
 var greeted=[];
 var users=[];
-
+// var RadioButton=[];
 
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
@@ -20,14 +20,14 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 //creating  get router that greets different users
- app.get('/greetings/:GreetedNames', function(req, res){
-    greeted.push(req.params.GreetedNames);
-
-    console.log(req.params.GreetedNames);
-    console.log(greeted);
-
-    res.send('Hello, ' + req.params.GreetedNames);
-  });
+ // app.get('/greetings/:GreetedNames', function(req, res){
+ //    greeted.push(req.params.GreetedNames);
+ //
+ //    console.log(req.params.GreetedNames);
+ //    console.log(greeted);
+ //
+ //    res.send('Hello, ' + req.params.GreetedNames);
+ //  });
   //creating an app that will display the greeted users
 app.get('/greeted', function(req, res){
 
@@ -50,14 +50,33 @@ app.get('/users/greet', function(req, res){
 
 app.post('/users/greet', function(req, res){
   var name=req.body.name
-  users.push(name)
-  res.render('./greet',{msg:'Hello ,' + name});
+  var language =req.body.language;
+  var greetingMessage='';
+  //var TextBox='';
+if (language==='TshiVenda') {
+  greetingMessage='Ndaa ,' + name
+}
+else if (language ==='French') {
+  greetingMessage='Bonjour ,' + name
+}
+else if (language ==='English') {
+  greetingMessage='Hello ,' + name
+}
+  // users.push(name)
+  res.render('./greet',{msg: greetingMessage});
 
 //  console.log("==================");
-  console.log(name);
+console.log(greetingMessage);
+  // console.log(name);
 
 
 });
+
+// function RadioButton(language) {
+//   if (language==='TshiVenda') {
+//     return 'Molo ,' + name
+//   }
+// }
 
 
 app.get('/counter/:GreetedPersonas', function(req, res){
@@ -70,6 +89,7 @@ app.get('/counter/:GreetedPersonas', function(req, res){
   res.send('Hello, ' + user + ' has been greeted ' + countUsers[counting] +' time(s)!');
 
 })
+
 
 //start the server
  var server = app.listen(3000, function () {
