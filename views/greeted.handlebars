@@ -1,0 +1,24 @@
+<!-- <head>
+
+
+<h1>Greeted Personas</h1>
+
+</head>
+<a href="/users/greet">Greet Users</a>
+<ul>
+   {{#each users}}
+   <li>{{this}}</li>
+   {{/each}}
+</ul> -->
+<h1>Greetings Using Forms</h1>
+
+<p>
+  <a href="/greetings" class="btn-primary btn">Click here to greet again</a>
+</p>
+
+
+<ul>
+  {{#each Greeted}}
+  <a href="/counter/{{this}}"><li>{{this}}</li></a>
+  {{/each}}
+</ul>

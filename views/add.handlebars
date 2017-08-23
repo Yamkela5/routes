@@ -1,0 +1,54 @@
+
+<br>
+<br>
+<!-- <form class="" action="/users/greet" method="post">
+  <input type="text" id="TextBox"name="name" placeholder="Type a name here.."> -->
+  <!-- <input type="submit" name="Hello" value="Hello">
+  <br>
+  <br>
+  <div id="languageSelect">
+     <input id="English" name="language" type="radio" value="English">
+     English
+
+     <input id="TshiVenda" name="language" type="radio" value="TshiVenda">
+   TshiVenda
+
+     <input id="French" name="language" type="radio" value="French">
+     French
+ </div>
+ <p id="output">
+  <br>
+  <br>
+
+  {{msg}}
+</form> -->
+<div class="container">
+<h1>Greet People</h1>
+<br>
+<br>
+<div class="form">
+<form method="post" >
+  <!-- action="/greetings" -->
+<input class="name" type="text" placeholder="Enter your name here .." name="name" value=""></input>
+ <input type="submit" name="" value="Greet">
+<!-- <button class="btn btn-primary btn-sm" type="submit">Greet</button> -->
+<br>
+<br>
+<div class="btn-group">
+  <label class="btn btn-success active">
+    <input type="radio" class="btn btn-primary" name="language" value="Latin" > Latin
+    <input type="radio" class="btn btn-primary"  name="language" value="English" > English
+    <input type="radio" class="btn btn-primary"  name="language" value="TshiVenda" >TshiVenda
+</label>
+    <!-- <a href="/greeted">View greeted people</a> -->
+</div>
+<br>
+<br>
+<a href="/greeted" class="btn-primary btn">Click here to see all greeted people</a>
+</form>
+</div>
+
+<p>{{language}} {{name}}</p>
+<p>{{counter}}</p>
+</div>
+<!-- </div> -->
