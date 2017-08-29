@@ -1,7 +1,20 @@
 var express = require('express');
-var app = express();
 var exphbs = require('express-handlebars');
 var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
+
+var app = express();
+
+var Models = require('./models/user');
+var models = Models();
+
+mongoose.connect('mongodb://localhost/Routes');
+var db = mongoose.connection;
+//throw err
+
+db.on('error', console.error.bind(console, 'connection error:'));
+
+
 
 app.engine('handlebars', exphbs({
     defaultLayout: 'main'
@@ -50,10 +63,33 @@ app.get('/greetings', function(req, res) {
 });
 
 app.post("/greetings", function(req, res) {
-    var name = req.body.name;    var language = req.body.language;
+    //  name = req.body.name;
 
+
+    var userData = {
+
+          name : req.body.name,
+
+        };
+
+      var language = req.body.language;
+
+
+
+        // use schema's `create` method to insert document into Mongo
+
+        models.User.create(userData, function (error, results) {
+          console.log(results);
+          if (error) {
+            return next(error);
+          } else {
+            //req.session.userId = user._id;
+            //return res.redirect('/greeted');
+            console.log(userData.name);
+          }
+        });
     res.render('add', {
-        name: Personas(name),
+        name: Personas(userData.name),
         language: Languages(language),
       //  counter: counter
     });
