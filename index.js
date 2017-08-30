@@ -101,18 +101,18 @@ app.get('/greeted', function(req, res) {
     });
 });
 
-// //creating a counter route
-// app.get('/counter/:names', function(req, res){
-//   var user = req.params.GreetedPersonas;
-//   var names = req.params.names;
-//   var countUsers ={};
-//   for(i=0; i<List.length; i++){
-//     var counting = List[i];
-//     countUsers[counting]=countUsers[counting] ? countUsers[counting]+1:1;
-//   }
-//   res.send('Hello, ' + names + ' has been greeted ' + countUsers[counting] +' time(s)!');
-//
-// })
+//creating a counter route
+app.get('/counter/:names', function(req, res){
+  var user = req.params.GreetedPersonas;
+  var names = req.params.names;
+  var countUsers ={};
+  for(i=0; i<List.length; i++){
+    var counting = List[i];
+    countUsers[counting]=countUsers[counting] ? countUsers[counting]+1:1;
+  }
+  res.send('Hello, ' + names + ' has been greeted ' + countUsers[counting] +' time(s)!');
+
+})
 app.set('port',(process.env.PORT || 5000) );
 
 app.listen(app.get('port'), function(){
