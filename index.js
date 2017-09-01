@@ -54,15 +54,15 @@ function Personas(name) {
 
 //create a route that will take different username
 
-app.get('/', function(req, res) {
+app.get('/', function(req, res, next) {
     res.redirect('/greetings')
 });
 
-app.get('/greetings', function(req, res) {
+app.get('/greetings', function(req, res, next) {
     res.render('add');
 });
 
-app.post("/greetings", function(req, res) {
+app.post("/greetings", function(req, res, next) {
     //  name = req.body.name;
 
 
@@ -71,8 +71,8 @@ app.post("/greetings", function(req, res) {
           name : req.body.name,
 
         };
+        var language = req.body.language;
 
-      var language = req.body.language;
 
 
 
@@ -83,6 +83,8 @@ app.post("/greetings", function(req, res) {
           if (error) {
             return next(error);
           } else {
+            //console.log(error);
+            //return next(error)
             //req.session.userId = user._id;
             //return res.redirect('/greeted');
             console.log(userData.name);
@@ -94,8 +96,15 @@ app.post("/greetings", function(req, res) {
       //  counter: counter
     });
 });
+// app.get("/userData", function(req, res, next){
+//     GreetedName.find({}, function(err){
+//       if (err){
+//         return next()
+//       }
+//     });
+// });
 
-app.get('/greeted', function(req, res) {
+app.get('/greeted', function(req, res, next) {
     res.render("greeted", {
         Greeted: List
     });
@@ -113,7 +122,14 @@ app.get('/counter/:names', function(req, res){
   res.send('Hello, ' + names + ' has been greeted ' + countUsers[counting] +' time(s)!');
 
 })
+
 app.set('port',(process.env.PORT || 5000) );
+app.use(function (err, req, res, next) {
+  //console.error(err.stack)
+  res.status(500).send(err.stack);
+
+})
+
 
 app.listen(app.get('port'), function(){
   console.log("Web app started on port: ", app.get('port'));
