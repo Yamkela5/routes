@@ -1,0 +1,47 @@
+<h1>Greeting Web app</h1>
+<form class="entry" method="post" action="/greetings">
+Name:
+<input type="text" name="name" placeholder="Please enter your name" id="input">
+<br>
+<br>
+<br>
+<div class='radiobtn'>
+Choose a language:
+  <input type="radio" name="language" value="English">
+  English
+  <input type="radio" name="language" value="TshiVenda">
+  TshiVenda
+  <input type="radio" name="language" value="French">
+  French
+</div>
+<br>
+<br>
+<input type="submit" value="Greet" id="button">
+</form>
+<br>
+<br>
+<div id="output">
+{{greet}}
+</div>
+<br>
+<br>
+<div id="counting">
+  {{number}}
+</div>
+<br><br>
+<form class="entry" method="post" action="/reset  ">
+  <input type="submit" value="Reset"></input>
+</form>
+  <br></br>
+  <form class="entry" method="post" action="/greeted">
+  <a href="/greeted">Click here to get the greeted People</a>
+
+</form>
+{{#each name}}
+<ul>
+ <li> {{this.name}} has been greeted {{this.count}} time(s)</li>
+</ul>
+{{/each}}
+<div class="display">
+  {{display}}
+</div>

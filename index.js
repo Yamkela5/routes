@@ -1,136 +1,94 @@
+"use strict";
 var express = require('express');
 var exphbs = require('express-handlebars');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-
+var MongoStorage = require('./mongo');
 var app = express();
-
-var Models = require('./models/user');
-var models = Models();
-
-mongoose.connect('mongodb://localhost/Routes');
-var db = mongoose.connection;
-//throw err
-
-db.on('error', console.error.bind(console, 'connection error:'));
-
-
-
+app.use(express.static('public'));
 app.engine('handlebars', exphbs({
-    defaultLayout: 'main'
+  defaultLayout: 'main'
 }));
 app.set('view engine', 'handlebars');
-
-app.use(express.static('public'))
 app.use(bodyParser.urlencoded({
-    extended: false
-}));
-app.use(bodyParser.json());
+  extended: false
+}))
+app.use(bodyParser.json())
 
-
-var List = [];
-var Obj = {};
-
-function Languages(language) {
-    if (language === "TshiVenda") {
-        return "Ndaa, "
-    } else if (language === "English") {
-        return "Hello, "
-    } else if (language === "French") {
-        return "Bonjour, "
+function nameSpotter(name, cb) {
+  MongoStorage.NameStorage.findOne({
+    name: name
+  }, function(err, person) {
+    if (err) {
+      return cb(err);
+    } else if (!person) {
+      var GreetedNames = new MongoStorage.NameStorage({
+        name: name,
+        count: 1
+      });
+      GreetedNames.save(cb)
+    } else if (person) {
+      person.count++;
+      person.save(cb);
     }
-}
+  });
+};
 
-function Personas(name) {
-    if (Obj[name] === undefined) {
-        List.push(name);
-        Obj[name] = 1;
-      //  counter++
-        return name
-    } else {
-      return name
-    }
-}
-
-//create a route that will take different username
-
-app.get('/', function(req, res, next) {
-    res.redirect('/greetings')
+app.get('/', function(req, res) {
+  var name = req.body.name;
+  res.render('index');
 });
-
-app.get('/greetings', function(req, res, next) {
-    res.render('add');
-});
-
-app.post("/greetings", function(req, res, next) {
-    //  name = req.body.name;
-
-
-    var userData = {
-
-          name : req.body.name,
-
-        };
-        var language = req.body.language;
-
-
-
-
-        // use schema's `create` method to insert document into Mongo
-
-        models.User.create(userData, function (error, results) {
-          console.log(results);
-          if (error) {
-            return next(error);
-          } else {
-            //console.log(error);
-            //return next(error)
-            //req.session.userId = user._id;
-            //return res.redirect('/greeted');
-            console.log(userData.name);
-          }
-        });
-    res.render('add', {
-        name: Personas(userData.name),
-        language: Languages(language),
-      //  counter: counter
-    });
-});
-// app.get("/userData", function(req, res, next){
-//     GreetedName.find({}, function(err){
-//       if (err){
-//         return next()
-//       }
-//     });
-// });
-
-app.get('/greeted', function(req, res, next) {
-    res.render("greeted", {
-        Greeted: List
-    });
-});
-
-//creating a counter route
-app.get('/counter/:names', function(req, res){
-  var user = req.params.GreetedPersonas;
-  var names = req.params.names;
-  var countUsers ={};
-  for(i=0; i<List.length; i++){
-    var counting = List[i];
-    countUsers[counting]=countUsers[counting] ? countUsers[counting]+1:1;
+var CountNames = function(req, res) {}
+app.post('/greetings', function(req, res) {
+  var name = req.body.name;
+  var language = req.body.language;
+  var message = '';
+  //declaring language and messages
+  if (language === 'TshiVenda') {
+    message = 'Ndaa , ' + name;
+  } else if (language === 'English') {
+    message = 'Hello , ' + name;
+  } else if (language === 'French') {
+    message = 'Bonjour , ' + name;
   }
-  res.send('Hello, ' + names + ' has been greeted ' + countUsers[counting] +' time(s)!');
-
+  nameSpotter(name, function() {
+    MongoStorage.NameStorage.count({}, function(err, count) {
+      if (err) {
+        return err;
+      } else {
+        res.render('index', {
+          greet: message,
+          number: count
+        })
+      }
+    });
+  });
+});
+var CountNames = function(req, res) {}
+app.post('/reset', function(req, res) {
+  MongoStorage.NameStorage.remove({}, function(err, remove) {
+    if (err) {
+      return err;
+    }
+    res.render('index')
+  })
+});
+app.get('/greeted',function(req, res){
+ MongoStorage.NameStorage.find({},function(err, names){
+   if(err){
+     console.log(err);
+   }
+   else {
+      console.log(names);
+     res.render('index',{name:names
+   })
+   }
+ })
 })
 
-app.set('port',(process.env.PORT || 5000) );
-app.use(function (err, req, res, next) {
-  //console.error(err.stack)
-  res.status(500).send(err.stack);
 
-})
-
-
-app.listen(app.get('port'), function(){
-  console.log("Web app started on port: ", app.get('port'));
+//start the server
+var port = process.env.PORT || 5000
+var server = app.listen(port, function() {
+  console.log("Web app started on port : " + port)
 });
