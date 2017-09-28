@@ -1,4 +1,4 @@
-## About the ** Greetings-web Application
+## About the  **Greetings-web** Application
 
 
 - This application allows you to greet different people in 3 different languages.
@@ -8,7 +8,7 @@
 
 ## Steps that must be taken before running the app on your computer.
  
- - This is an express app so you need to install NodeJS.
+ - This is an express app so you need to install 'NodeJS'.
  - To check if you have NodeJS enter this command;
  *node -v* it should show the node version,if it doesn't then you'll have to install NodeJS.
  - Install *ExpressJS*
