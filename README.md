@@ -19,7 +19,6 @@
   - You can install **ExpressJS** by enter this commmand on the terminal :
   - `npm install express --save` so that express can be added to the dependencies list.
  - Install **nodemon** that save you from starting the server everytime.
-   - You can install **nodemon** using this command:
- - `npm install -g nodemon`    
+   - You can install **nodemon** using this command `npm install -g nodemon`    
  - Install `express-handlebars` that will use as a view engine.
      - Use this command to install `npm install express-handlebars --save`.
