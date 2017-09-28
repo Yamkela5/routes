@@ -35,4 +35,5 @@
 ##Deployment sites that have my application
 
  - You can find my application on **Heroku**
- - [ou can find my app here]ring-harbor-20208.herokuapp.com
+ - 
+[I'm an inline-style link](murmuring-harbor-20208.herokuapp.com)
