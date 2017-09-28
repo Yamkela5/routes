@@ -13,6 +13,13 @@
  
  ## Modules that you will have to install.
  
- - Firstly,this app requires NodeJS for it to run so for you to check if you have NodeJS enter this command
- `node -v`
- 
+ - Firstly,this app requires NodeJS for it to run so for you to check if you have NodeJS enter this command `node -v` on your terminal,it shall you the version of NodeJS that you have.
+ -Type `npm init` to update the package.json file.
+ -Now that you have `NodeJS`,you can install install **ExpressJS**.
+  -You can install **ExpressJS** by enter this commmand on the terminal :
+  `npm install express --save` so that express can be added to the dependencies list.
+ -Install **nodemon** that save you from starting the server everytime.
+   -You can install **nodemon** using this command:
+   `npm install -g nodemon`    
+ - Install `express-handlebars` that will use as a view engine.
+  Use this command to install `npm install express-handlebars --save`.
