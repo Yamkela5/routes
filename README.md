@@ -1,4 +1,4 @@
-## About the **Greetings-web Application
+## About the ** Greetings-web Application
 
 
 - This application allows you to greet different people in 3 different languages.
