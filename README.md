@@ -11,7 +11,7 @@
  - You can access my application by forking the repository,that way you will have my repo on your machine.
  - This is an express application hence you will have to do some **installations**
  
- ## Modules that you will have to install.
+ ## Here are the commands for the installation that you will need.
  
  - Firstly,this app requires NodeJS for it to run so for you to check if you have NodeJS enter this command `node -v` on your terminal,it shall you the version of NodeJS that you have.
  - Type `npm init` to update the package.json file.
@@ -32,7 +32,7 @@
 -Open a new terminal that you will use for mongo,enter `mongo`.
 -You're now ready to go!
 
-##Deployment sites that have my application
+## Deployment sites that have my application
 
  - You can find my application on **Heroku**
  - [Check it here](murmuring-harbor-20208.herokuapp.com)
